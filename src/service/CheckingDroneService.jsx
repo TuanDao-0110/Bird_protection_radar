@@ -10,31 +10,14 @@ export const checkDroneViolation = (drone) => {
   }
 };
 
-// Example usage
-// const drones = [
-//   { positionX: 249999, positionY: 249999 },
-//   { positionX: 250001, positionY: 250001 },
-//   { positionX: 0, positionY: 250002 },
-// ];
 
-export const checkDroneInSnapShotArea = (drone) => {
-  const { positionY: birdY, positionX: birdX } = BIRD_NEST;
-  const { positionY: droneY, positionX: droneX } = drone;
-  // check drone position belong to 500m^2 fron bird nest
-  if (birdX - SNAPSHOT <= droneX <= birdX + SNAPSHOT && birdY - SNAPSHOT <= droneY <= birdY + SNAPSHOT) {
-    return true;
-  }
-  return false;
-};
-
+// 2. calculate distance
 export const calculateDistance = (drone) => {
   const { positionX: birdX, positionY: birdY } = BIRD_NEST;
   const distance = Math.sqrt(Math.pow(drone.positionX - birdX, 2) + Math.pow(drone.positionY - birdY, 2));
   return distance;
 };
-
-export const persistData = () => {};
-// 2. get pilot data
+// 2. get pilot data vs return as Object Format:
 export const getPilotValidateList = async (restartProgram) => {
   try {
     const droneData = await getThrone(restartProgram);

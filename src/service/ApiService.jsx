@@ -4,15 +4,17 @@ import { CORS_PROXY_URL, GET_PILOT, GET_THRONE } from "../ultilities/Api";
 // 1. call api to get drone location
 export const getThrone = async (restartProgram) => {
   try {
-    const { data } = await axios({
+    const { status, data } = await axios({
       method: "GET",
       url: CORS_PROXY_URL + GET_THRONE,
     });
     console.log(data);
-    let droneData = parseXml(data);
-    return droneData;
+    if (status === 200) {
+      let droneData = parseXml(data);
+      return droneData;
+    }
   } catch (error) {
-    restartProgram();
+    // restartProgram();
     console.log(error);
     return error;
   }

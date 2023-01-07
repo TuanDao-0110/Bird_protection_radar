@@ -2,16 +2,8 @@ import React, { useEffect, useState } from "react";
 import rada from "../rada.png";
 import { getPilotValidateList } from "../service/CheckingDroneService";
 export default function Scanning({ count, setCount }) {
-  // const [count, setCount] = useState(0);
   const [scanning, setScanning] = useState(true);
   const [reboot, setReboot] = useState(false);
-  // const setUpCountDown = () => {
-  //   const interval = setInterval(() => {
-  //     setCount((prevCount) => prevCount - 1);
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // };
-  // const [count, setCount] = useState(0);
   let interval;
 
   const updateCount = () => {
@@ -47,15 +39,15 @@ export default function Scanning({ count, setCount }) {
   };
 
   useEffect(() => {
-    if (scanning) {
-      startProgram();
+    // if (scanning) {
+    //   startProgram();
 
-      return () => {
-        clearInterval(interval);
-      };
-    } else {
-      clearInterval(interval);
-    }
+    //   return () => {
+    //     clearInterval(interval);
+    //   };
+    // } else {
+    //   clearInterval(interval);
+    // }
   }, [scanning]);
   if (count === 3) {
     setCount(0);

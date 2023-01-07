@@ -5,14 +5,16 @@ import { getLocalStore } from "../service/DataService";
 import { sortingSmallest } from "../service/ProgrammeService";
 import style from "./PilotList.module.css";
 export default function PilotList({ count }) {
+  // 1. display list:
   const [listValidatedDrone, setListValidatedDrone] = useState([]);
   const [showedList, setShowListed] = useState(true);
+  // 2. tracking count variable to get data
   useEffect(() => {
     if (count === 0) {
       setListValidatedDrone(getLocalStore());
     }
   }, [count]);
-
+  // 3. render validatedlist function
   const renderValidatedList = () => {
     if (listValidatedDrone === null) {
       return "No validated Drone";
@@ -34,9 +36,10 @@ export default function PilotList({ count }) {
       });
     }
   };
+  // 4.sorting including create new arrayobject list
   const sortList = () => {
     let newList = [];
-    // 1 restructure list from localhost
+    // 4.1 restructure list from localhost
     listValidatedDrone?.map((item, index) => {
       const { captureTime, pilots } = item;
       pilots.map((item, index) => {
@@ -44,6 +47,7 @@ export default function PilotList({ count }) {
         newList.push(item);
       });
     });
+    // 4.2. return list with smallest order
     return sortingSmallest(newList, "distance");
   };
   return (

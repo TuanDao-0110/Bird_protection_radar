@@ -93,4 +93,6 @@ Example:
 2. Validated List show information from the last 10min to anyone opening the application
 3. Not require the user to manually refresh the view to see up-to-date information
 
-## Note: 
+## Solution && Steps: 
+
+1. Data first get Drones validate 
