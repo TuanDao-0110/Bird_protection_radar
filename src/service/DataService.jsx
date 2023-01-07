@@ -17,7 +17,7 @@ export const setUpStore = (newData) => {
     return storeLocalStore(newList);
   } else {
     // 2. add new data
-    newList = [...oldData];
+    newList = oldData;
     newList.push(newData);
     if (isTenMinutesApart(newList)) {
       return storeLocalStore(newList.pop());

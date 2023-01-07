@@ -1,9 +1,6 @@
 import { BIRD_NEST, CIRCLE_RADIUS, SNAPSHOT } from "../ultilities/Data_Positions";
 import { getPilot, getThrone } from "./ApiService";
 import { setUpStore } from "./DataService";
-import moment from "moment/moment";
-import { setUp10MinList } from "./DataService";
-import { getLocalStore } from "./DataService";
 // 1. check drone by using its position to check wheather it violated or not
 export const checkDroneViolation = (drone) => {
   if (calculateDistance(drone) <= CIRCLE_RADIUS) {
@@ -38,14 +35,11 @@ export const calculateDistance = (drone) => {
 
 export const persistData = () => {};
 // 2. get pilot data
-export const getPilotValidateList = async () => {
+export const getPilotValidateList = async (restartProgram) => {
   try {
-    const droneData = await getThrone()
-      .then((res) => res)
-      .catch((error) => console.log(error));
-    const { captureTime, arrDrone } = droneData;
-    console.log(droneData);
-    if (arrDrone.length) {
+    const droneData = await getThrone(restartProgram);
+    if (droneData) {
+      const { captureTime, arrDrone } = droneData;
       let pilots = [];
       let validationDrones = [];
       let validationData = {};
@@ -53,7 +47,7 @@ export const getPilotValidateList = async () => {
         // eslint-disable-next-line no-unused-expressions
         !checkDroneViolation(drone) ? validationDrones.push(drone) : " ";
       });
-      if (validationDrones.length) {
+      if (validationDrones.length !== 0) {
         for (let i = 0; i < validationDrones.length - 1; i++) {
           let pilot = await getPilot(validationDrones[i].serialNumber).then((pilot) => {
             const { email, firstName, lastName, phoneNumber } = pilot;
@@ -71,5 +65,7 @@ export const getPilotValidateList = async () => {
         return validationData;
       }
     }
-  } catch (error) {}
+  } catch (error) {
+    return error;
+  }
 };

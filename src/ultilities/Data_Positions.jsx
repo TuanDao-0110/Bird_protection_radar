@@ -4,7 +4,7 @@ export const BIRD_NEST = {
   positionX: 250000,
 };
 // 2. CIRCLE radius no fly-drone allow
-export const CIRCLE_RADIUS = 100;
+export const CIRCLE_RADIUS = 1000;
 // 3. The position of the drones are reported as X and Y coordinates,
 export const FLOATING_POINTS = {
   start: 0,

@@ -2,57 +2,49 @@ import moment from "moment/moment";
 import React, { Fragment, useEffect, useState } from "react";
 import { getPilotValidateList } from "../service/CheckingDroneService";
 import { getLocalStore } from "../service/DataService";
+import { sortingSmallest } from "../service/ProgrammeService";
 import style from "./PilotList.module.css";
-export default function PilotList() {
+export default function PilotList({ count }) {
   const [listValidatedDrone, setListValidatedDrone] = useState([]);
   const [showedList, setShowListed] = useState(true);
   useEffect(() => {
-    setListValidatedDrone(getLocalStore());
-  }, []);
+    if (count === 0) {
+      setListValidatedDrone(getLocalStore());
+    }
+  }, [count]);
 
   const renderValidatedList = () => {
     if (listValidatedDrone === null) {
       return "No validated Drone";
     } else {
-      return listValidatedDrone?.map((item, index) => {
-        const { captureTime, pilots } = item;
+      return sortList()?.map((item, index) => {
+        const { captureTime, email, firstName, lastName, phoneNumber, distance } = item;
         return (
           <Fragment key={index}>
-            <tr>
-              <td rowSpan={pilots.length}>{moment(captureTime).format("dd hh:mm:ss")}</td>
-              {pilots.map((item, index) => {
-                const { email, firstName, lastName, phoneNumber, distance } = item;
-                return index === 0 ? (
-                  <Fragment key={index}>
-                    <td>{email}</td>
-                    <td>{firstName}</td>
-                    <td>{lastName}</td>
-                    <td>{phoneNumber}</td>
-                    <td>{distance.toLocaleString(0)} m</td>
-                  </Fragment>
-                ) : (
-                  ""
-                );
-              })}
+            <tr key={index}>
+              <td>{captureTime}</td>
+              <td>{email}</td>
+              <td>{firstName}</td>
+              <td>{lastName}</td>
+              <td>{phoneNumber}</td>
+              <td>{distance.toLocaleString(0)} m</td>
             </tr>
-            {pilots.map((item, index) => {
-              const { email, firstName, lastName, phoneNumber, distance } = item;
-              return index !== 0 ? (
-                <tr key={index}>
-                  <td>{email}</td>
-                  <td>{firstName}</td>
-                  <td>{lastName}</td>
-                  <td>{phoneNumber}</td>
-                  <td>{distance.toLocaleString(0)} m</td>
-                </tr>
-              ) : (
-                ""
-              );
-            })}
           </Fragment>
         );
       });
     }
+  };
+  const sortList = () => {
+    let newList = [];
+    // 1 restructure list from localhost
+    listValidatedDrone?.map((item, index) => {
+      const { captureTime, pilots } = item;
+      pilots.map((item, index) => {
+        item = { ...item, captureTime };
+        newList.push(item);
+      });
+    });
+    return sortingSmallest(newList, "distance");
   };
   return (
     <div className={style["main"]}>
