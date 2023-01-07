@@ -1,0 +1,28 @@
+
+
+.list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.list td,
+.list th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.list tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.list tr:hover {
+    background-color: #ddd;
+}
+
+.list th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04aa6d;
+    color: white;
+}

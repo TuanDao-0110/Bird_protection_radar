@@ -11,7 +11,7 @@ export const getThrone = async () => {
     let droneData = parseXml(data);
     return droneData;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 // 1.1 parse XML data return Array
@@ -51,6 +51,6 @@ export const getPilot = async (serialNumber) => {
     });
     return data;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };

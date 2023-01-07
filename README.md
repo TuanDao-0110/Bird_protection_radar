@@ -5,7 +5,7 @@ REACT
 ## Running: 
 
 ```
-npm run dev  
+npm start 
 ```
 # Visit Live Page at:
 

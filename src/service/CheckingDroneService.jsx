@@ -40,34 +40,36 @@ export const persistData = () => {};
 // 2. get pilot data
 export const getPilotValidateList = async () => {
   try {
-    const droneData = await getThrone().then((res) => res);
+    const droneData = await getThrone()
+      .then((res) => res)
+      .catch((error) => console.log(error));
     const { captureTime, arrDrone } = droneData;
-    if (arrDrone) {
+    console.log(droneData);
+    if (arrDrone.length) {
       let pilots = [];
       let validationDrones = [];
-      let validationData = { captureTime };
-      // console.log(droneData);
+      let validationData = {};
       arrDrone?.map((drone) => {
         // eslint-disable-next-line no-unused-expressions
         !checkDroneViolation(drone) ? validationDrones.push(drone) : " ";
       });
-
-      validationDrones?.map(async (drone) => {
-        let pilot = await getPilot(drone.serialNumber).then((pilot) => {
-          const { email, firstName, lastName, phoneNumber } = pilot;
-          const distance = calculateDistance(drone);
-          const validatedPilotData = { email, firstName, lastName, phoneNumber, distance };
-          return validatedPilotData;
+      if (validationDrones.length) {
+        for (let i = 0; i < validationDrones.length - 1; i++) {
+          let pilot = await getPilot(validationDrones[i].serialNumber).then((pilot) => {
+            const { email, firstName, lastName, phoneNumber } = pilot;
+            const distance = calculateDistance(validationDrones[i]);
+            const validatedPilotData = { email, firstName, lastName, phoneNumber, distance };
+            return validatedPilotData;
+          });
+          pilots.push(pilot);
+        }
+        Object.assign(validationData, {
+          captureTime,
+          pilots,
         });
-        pilots.push(pilot);
-      });
-      validationData = { ...validationData, pilots };
-      setUpStore(validationData);
-      return getLocalStore();
-    } else {
-      alert("no drone found ");
+        setUpStore(validationData);
+        return validationData;
+      }
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
