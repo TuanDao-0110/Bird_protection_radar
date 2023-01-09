@@ -115,5 +115,26 @@ Example:
 
 ## API Diagram from calling to project's storage:
 
-<!-- <img src='./src/readme_service/API_Diagram.drawio.svg' width=100 height=50><img/> -->
+<img src='./src/readme_service/API_Diagram.drawio.svg' width=1000 height=300><img/>
+
+## Data structure: 
+
+<img src='./src/readme_service/Data_Structure.svg' width=1000 height=300><img/>
+
+## Page Display vs Function:
+
+1. Request Temporarily valid for 1 day access: 
+
+<img src='./src/readme_service/Proxy_Request.png' width=1000 height=300><img/>
+
+2. Open application, auto run, application searching radius can add or remove:
+
+<img src='./src/readme_service/Screen_Shot_1.png' width=1000 height=300><img/>
+
+3. Violated List will shown, Program instruction can be found:
+
+<img src='./src/readme_service/Screen_Shot_2.png' width=1000 height=300><img/>
+
+
+
 
