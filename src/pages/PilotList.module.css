@@ -23,7 +23,15 @@
 .list th {
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: left;
+    /* text-align: left; */
     background-color: #04aa6d;
     color: white;
+}
+
+.list td {
+    text-align: left;
+}
+
+.list {
+    margin-top: 2rem;
 }

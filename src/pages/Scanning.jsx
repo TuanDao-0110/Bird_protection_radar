@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import rada from "../rada.png";
 import { getPilotViolatedDronesList } from "../service/CheckingDroneService";
-import { setUpDefaultRadius } from "../service/StoringDataService";
 import { COUNT_DOWN_TIME } from "../ultilities/Data_Positions";
 export default function Scanning({ count, setCount }) {
   const [scanning, setScanning] = useState(true);
@@ -17,7 +16,6 @@ export default function Scanning({ count, setCount }) {
       setReboot(false);
       updateCount();
       if (count === 0) {
-        console.log("start");
         await getPilotViolatedDronesList(restartProgram);
       }
     }, 1000);
@@ -38,7 +36,6 @@ export default function Scanning({ count, setCount }) {
 
     //3.5 Set 2-minute time and start program again
     setTimeout(() => {
-      console.log("reset");
       window.location.reload();
       setScanning(true);
       // Restart program

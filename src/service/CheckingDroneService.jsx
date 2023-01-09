@@ -47,8 +47,6 @@ const storeViolatedData = async (droneData) => {
       captureTime,
       violatedPilots,
     });
-    console.log("violated data");
-    console.log(violatedData);
     // 3.2.4 set up to local store
     setUpStore(violatedData);
   }
@@ -58,7 +56,6 @@ export const getPilotViolatedDronesList = async (restartProgram) => {
   try {
     const droneData = await getThrone(restartProgram);
     if (droneData) {
-      console.log(droneData);
       await storeViolatedData(droneData);
     }
   } catch (error) {

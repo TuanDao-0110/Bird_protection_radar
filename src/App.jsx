@@ -5,12 +5,13 @@ import Scanning from "./pages/Scanning";
 import { setUpDefaultRadius } from "./service/StoringDataService";
 import { add100MRadius, remove100MRadius } from "./service/ProgrammeService";
 import { COUNT_DOWN_TIME } from "./ultilities/Data_Positions";
+import Footer from "./pages/Footer";
 
 function App() {
   const [count, setCount] = useState(COUNT_DOWN_TIME);
-   useEffect(() => {
-     setUpDefaultRadius();
-   }, []);
+  useEffect(() => {
+    setUpDefaultRadius();
+  }, []);
   return (
     <div className="App">
       <h1>Auto scanning drone rada system</h1>
@@ -24,6 +25,7 @@ function App() {
       </div>
       <Scanning count={count} setCount={setCount} />
       <PilotList count={count} />
+      <Footer />
     </div>
   );
 }

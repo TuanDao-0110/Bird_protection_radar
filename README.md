@@ -1,15 +1,31 @@
-# Project Name: bird_nest_drone_protection  
+# Project Name: bird_nest_drone_protection
+
 ## Technology
 
 REACT
-## Running: 
+
+## Running:
 
 ```
-npm start 
+npm start
 ```
-# Visit Live Page at:
 
-## Project Information: 
+## Visit Live Page:
+
+1. Before visit, please request temporary access to the Heroku Proxy Server by going to the below URL:
+
+https://cors-anywhere.herokuapp.com/corsdemo
+
+2. More details about CORS policy blocking system and fixing solution can be found at:
+
+https://softauthor.com/how-to-fix-cors-issue-permanently-right-now/
+
+3. After temporary access to Herokyu Proxy Server, Application can work at:
+
+https://bird-nest.pages.dev/
+
+## Project Information:
+
 A rare and endangered Monadikuikka has been spotted nesting at a local lake.
 
 Unfortunately some enthusiasts have been a little too curious about this elusive bird species, flying their drones very close to the nest for rare photos and bothering the birds in the process.
@@ -18,16 +34,17 @@ To preserve the nesting peace, authorities have declared the area within 100 met
 
 The authorities have set up drone monitoring equipment to capture the identifying information broadcasted by the drones in the area, and have given you access to a national drone pilot registry. They now need your help in tracking violations and getting in touch with the offenders.
 
-## Data: 
+## Data:
 
-1. Drone position API: 
+1. Drone position API:
 
-``` 
+```
 GET assignments.reaktor.com/birdnest/drones
 ```
-API return in XML format include postion and serial number each drone in area. 
 
-Return format example: 
+API return in XML format include postion and serial number each drone in area.
+
+Return format example:
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -66,14 +83,16 @@ Return format example:
     </capture>
 </report>
 ```
-## Pilot Information: 
 
-1. Pilot information API: 
+## Pilot Information:
 
-``` 
+1. Pilot information API:
+
+```
 GET assignments.reaktor.com/birdnest/pilots/serialNumber
 ```
-searialNumber is registerd for each drone, Return data include user's name, contact information and other details for a drone's registerd owner in JSON format. 
+
+searialNumber is registerd for each drone, Return data include user's name, contact information and other details for a drone's registerd owner in JSON format.
 
 Example:
 
@@ -87,12 +106,14 @@ Example:
     "email": "amos.walter@example.com"
 }
 ```
+
 ## User Stories:
 
-1. Program when in operation, in every 2 second, capture all throne and stored violated drones (inside 100m radius from Bird_Nest and closest distance to the birdnest) which content drone's owner's information. 
+1. Program when in operation, in every 2 second, capture all throne and stored violated drones (inside 100m radius from Bird_Nest and closest distance to the birdnest) which content drone's owner's information.
 2. Validated List show information from the last 10min to anyone opening the application
 3. Not require the user to manually refresh the view to see up-to-date information
 
-## Solution && Steps: 
+## API Diagram from calling to project's storage:
 
-1. Data first get Drones validate 
+<!-- <img src='./src/readme_service/API_Diagram.drawio.svg' width=100 height=50><img/> -->
+

@@ -16,29 +16,24 @@ export const setUpStore = (newData) => {
   if (oldData === null) {
     newList = [];
     newList.push(newData);
-    console.log(newList);
     return storeLocalStore(newList);
   } else {
     // 3.2. add new data
     newList = oldData;
     newList.push(newData);
-    if (isTenMinutesApart(newList)) {
-      return storeLocalStore(newList.pop());
-    } else {
-      return storeLocalStore(newList);
-    }
+    return storeLocalStore(newList.filter((data) => isTenMinutesApart(data)));
   }
 };
 // 4. Persist the pilot information for 10 minutes since their drone was last seen by the equipment
-const isTenMinutesApart = (newList) => {
-  const time1 = new Date(newList[0][CAPTURE_TIME]);
-  const time2 = new Date(newList[newList.length - 1][CAPTURE_TIME]);
-  const difference = Math.abs(time1 - time2);
-
-  // Convert the difference to minutes
-  const minutes = difference / 1000 / 60;
-  // Return true if the difference is more than 10 minutes
-  return minutes > TIME_LIMIT;
+const isTenMinutesApart = (oldTime) => {
+  const currentTime = new Date();
+  const pastTime = new Date(oldTime[CAPTURE_TIME]);
+  const differenceInMinutes = (currentTime.getTime() - pastTime.getTime()) / 60000;
+  if (differenceInMinutes < TIME_LIMIT) {
+    return true;
+  } else {
+    return false;
+  }
 };
 // 5. set up default radius
 export const setUpDefaultRadius = () => {
