@@ -12,3 +12,9 @@ export const FLOATING_POINTS = {
 };
 // 4. snapshot of all the drones within a 500 by 500 meter square and is updated about once every 2 seconds.
 export const SNAPSHOT = 500;
+// 
+export const COUNT_DOWN_TIME = 5;
+
+
+// 6. storing time duration:
+export const TIME_LIMIT = 10;

@@ -1,17 +1,18 @@
 import moment from "moment/moment";
 import React, { Fragment, useEffect, useState } from "react";
-import { getPilotValidateList } from "../service/CheckingDroneService";
-import { getLocalStore } from "../service/DataService";
+import { getLocalStore } from "../service/StoringDataService";
 import { sortingSmallest } from "../service/ProgrammeService";
 import style from "./PilotList.module.css";
+import { STORING_VIOLATED_DATA } from "../ultilities/Data_Name";
 export default function PilotList({ count }) {
   // 1. display list:
-  const [listValidatedDrone, setListValidatedDrone] = useState([]);
+  const [listValidatedDrone, setListValidatedDrone] = useState();
   const [showedList, setShowListed] = useState(true);
   // 2. tracking count variable to get data
   useEffect(() => {
-    if (count === 0) {
-      setListValidatedDrone(getLocalStore());
+    if (count === 5) {
+      setListValidatedDrone(getLocalStore(STORING_VIOLATED_DATA));
+      console.log("get list");
     }
   }, [count]);
   // 3. render validatedlist function
@@ -24,12 +25,13 @@ export default function PilotList({ count }) {
         return (
           <Fragment key={index}>
             <tr key={index}>
-              <td>{captureTime}</td>
+              <td>{index + 1}</td>
+              <td>{moment(captureTime).format("hh:mm:ss")}</td>
               <td>{email}</td>
               <td>{firstName}</td>
               <td>{lastName}</td>
               <td>{phoneNumber}</td>
-              <td>{distance.toLocaleString(0)} m</td>
+              <td>{distance.toFixed(1).toLocaleString(0)} m</td>
             </tr>
           </Fragment>
         );
@@ -41,8 +43,8 @@ export default function PilotList({ count }) {
     let newList = [];
     // 4.1 restructure list from localhost
     listValidatedDrone?.map((item, index) => {
-      const { captureTime, pilots } = item;
-      pilots.map((item, index) => {
+      const { captureTime, violatedPilots } = item;
+      violatedPilots.map((item, index) => {
         item = { ...item, captureTime };
         newList.push(item);
       });
@@ -52,21 +54,14 @@ export default function PilotList({ count }) {
   };
   return (
     <div className={style["main"]}>
-      <h1>pilot list </h1>
+      <h1>violated pilot list </h1>
       <div>
         <button
           onClick={() => {
             setShowListed(!showedList);
           }}
         >
-          show list
-        </button>
-        <button
-          onClick={() => {
-            getPilotValidateList();
-          }}
-        >
-          show Pilot list
+          Toogle List
         </button>
       </div>
       <div className={style["list"]}>
@@ -74,6 +69,7 @@ export default function PilotList({ count }) {
           <table id="customers">
             <thead>
               <tr>
+                <th>Number</th>
                 <th>Time</th>
                 <th>Email</th>
                 <th>First Name</th>

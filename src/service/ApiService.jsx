@@ -8,13 +8,12 @@ export const getThrone = async (restartProgram) => {
       method: "GET",
       url: CORS_PROXY_URL + GET_THRONE,
     });
-    console.log(data);
     if (status === 200) {
       let droneData = parseXml(data);
       return droneData;
     }
   } catch (error) {
-    // restartProgram();
+    restartProgram();
     console.log(error);
     return error;
   }

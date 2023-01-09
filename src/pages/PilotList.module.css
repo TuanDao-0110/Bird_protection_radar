@@ -1,5 +1,6 @@
-
-
+.main {
+    margin: 5rem 0;
+}
 .list {
     width: 100%;
     display: flex;
