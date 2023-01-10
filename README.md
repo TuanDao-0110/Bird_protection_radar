@@ -24,6 +24,8 @@ https://softauthor.com/how-to-fix-cors-issue-permanently-right-now/
 
 https://bird-nest.pages.dev/
 
+TIP: For testing purpose, we can increase searching radius to at least > 50,000m to get more result. 
+
 ## Project Information:
 
 A rare and endangered Monadikuikka has been spotted nesting at a local lake.
