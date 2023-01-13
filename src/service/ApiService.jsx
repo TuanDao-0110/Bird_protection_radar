@@ -7,6 +7,7 @@ export const getThrone = async (restartProgram) => {
     const { status, data } = await axios({
       method: "GET",
       url: CORS_PROXY_URL + GET_THRONE,
+      // url:GET_THRONE
     });
     if (status === 200) {
       let droneData = parseXml(data);
@@ -14,7 +15,6 @@ export const getThrone = async (restartProgram) => {
     }
   } catch (error) {
     restartProgram();
-    console.log(error);
     return error;
   }
 };
